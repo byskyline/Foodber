@@ -1,0 +1,7 @@
+      invoke  active_record
+      create    db/migrate/20151222130324_create_article_categoryships.rb
+      create    app/models/article_categoryship.rb
+      invoke    test_unit
+      create      test/models/article_categoryship_test.rb
+      create      test/fixtures/article_categoryships.yml
+Running via Spring preloader in process 22746

@@ -1,0 +1,7 @@
+      invoke  active_record
+      create    db/migrate/20151222125852_create_comments.rb
+      create    app/models/comment.rb
+      invoke    test_unit
+      create      test/models/comment_test.rb
+      create      test/fixtures/comments.yml
+Running via Spring preloader in process 22709
