@@ -1,8 +1,7 @@
 <%= form_for @article, :url => articles_path, :class => "form" do |f|%>
-
-	<%= f.collection_check_boxes(:category_ids, Category.all, :id, :title) %>
 	<%= f.label :topic, "Topic: " %>
-	<%= f.text_field :topic  %>
+	<%= f.text_field :topic  %><hr>
+	<%= f.collection_check_boxes(:category_ids, Category.all, :id, :title) %><hr>
 	<%= f.label :content, "Content: " %>
 	<%= f.text_area :content %>
 	<%= f.submit "Create"%>
