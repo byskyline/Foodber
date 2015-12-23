@@ -1,6 +1,26 @@
 
 <p><%= @article.topic %></p>
-<p><%= @article.updated_at %></p>
+
+<p>Published by <%= @article.user.email %></p>
+<p>Published at <%= @article.updated_at %></p>
 <p><%= simple_format(@article.content) %></p>
+<!-- <p><%= link_to 'Add comment', article_comments_path(@article)%></p> -->
+
+<%= form_for @comment, :url => article_comments_path(@article), :class => "form" do |f|%>
+	<%= f.label :comment, "Comment: " %>
+	<%= f.text_field :content  %>
+	
+	<%= f.submit "add comment"%>
+<% end %>
+<ul>
+<% @comments.each do |c|%>
+	<li><%= c.content %>
+	<ul>
+		<li>by <%= @article.user.email%> on <%=c.updated_at%></li>
+	</ul>
+	</li>
+<% end %>
+	
+</ul>
 
 <p><%= link_to 'Back to index', articles_path %></p>

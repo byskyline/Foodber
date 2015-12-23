@@ -1,0 +1,15 @@
+<h1>This the comment list for <%= @article.topic%></h1>
+
+<%= form_for @comment, :url => article_comments_path(@article), :class => "form" do |f|%>
+	<%= f.label :comment, "Comment: " %>
+	<%= f.text_field :content  %>
+	
+	<%= f.submit "add comment"%>
+<% end %>
+
+<ul>
+<% @comments.each do |c|%>
+	<li><%= c.content%> </li>
+<% end %>
+	
+</ul>
