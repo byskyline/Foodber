@@ -1,0 +1,7 @@
+<%= form_for @article, :url => article_path, :class => "form" do |f|%>
+	<%= f.label :topic, "Topic: " %>
+	<%= f.text_field :topic  %>
+	<%= f.label :content, "Content: " %>
+	<%= f.text_area :content %>
+	<%= f.submit "Update"%>
+<% end %>

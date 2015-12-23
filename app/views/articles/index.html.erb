@@ -1,0 +1,22 @@
+<p>This is the article index page</p>
+<table class="table">
+	<% @articles.each do |article|%>
+	<tr>
+		<td colspan="" rowspan="" headers="">
+			<%= "#{article.topic}"%>
+		</td>
+		<td colspan="" rowspan="" headers="">
+			<%= link_to "show", article_path(article)%>
+		</td>
+		<td colspan="" rowspan="" headers="">
+			<%= link_to "edit", edit_article_path(article)%>
+		</td>
+		<td colspan="" rowspan="" headers="">
+			<%= link_to "delete", article_path(article), :method =>:delete %>
+		</td>
+	</tr>
+
+	<%end%>
+</table>
+
+<%= link_to 'Add new article', new_article_path %>
