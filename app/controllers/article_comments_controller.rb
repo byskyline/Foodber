@@ -10,6 +10,7 @@ class ArticleCommentsController < ApplicationController
 
 	def create
 		@comment = @article.comments.build(comment_params)
+		@comment.user=current_user
 		@comment.save
 
 		redirect_to article_path(@article)
@@ -19,7 +20,7 @@ class ArticleCommentsController < ApplicationController
 		@comment =@article.comments.find(params[:id])
 		@comment.destroy
 		redirect_to article_path(@article)
-		# redirect_to article_comments_path(@article,c)
+		
 	end
 
 

@@ -1,4 +1,5 @@
 <%= form_for @article, :url => article_path, :class => "form" do |f|%>
+	<%= f.collection_check_boxes(:category_ids, Category.all, :id, :title) %>
 	<%= f.label :topic, "Topic: " %>
 	<%= f.text_field :topic  %>
 	<%= f.label :content, "Content: " %>
