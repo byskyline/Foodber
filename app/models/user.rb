@@ -59,7 +59,13 @@ class User < ActiveRecord::Base
   def display_name
     email
   end
+
   def short_name
      self.email.split("@").first
   end
+
+  def admin?
+    self.role == "admin"
+  end
+
 end

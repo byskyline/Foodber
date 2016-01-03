@@ -32,8 +32,9 @@
   <p class="alert"><%= alert %></p>
 <%= yield %>
 
-  <%= link_to "admin", admin_articles_path %>
-
+  <% if current_user && current_user.admin? %>
+    <%= link_to "admin", admin_articles_path %>
+  <% end %>
 </div>
 
 </body>
