@@ -1,8 +1,22 @@
+
 <%= form_for @article, :url => articles_path, :class => "form" do |f|%>
+
+<div class="form-group">
 	<%= f.label :topic, "Topic: " %>
-	<%= f.text_field :topic  %><hr>
-	<%= f.collection_check_boxes(:category_ids, Category.all, :id, :title) %><hr>
+	<%= f.text_field :topic  %>
+</div>
+<div class="form-group">
+  <%= f.file_field :logo %>
+  <%= check_box_tag "_remove_logo","1"%> Remove Logo
+</div>
+<div class="form-group">
+	<%= f.collection_check_boxes(:category_ids, Category.all, :id, :title) %>
+</div>
+<div class="form-group">
 	<%= f.label :content, "Content: " %>
+
 	<%= f.text_area :content %>
+</div>
+
 	<%= f.submit "Create"%>
 <% end %>

@@ -1,26 +1,28 @@
 class ArticleCommentsController < ApplicationController
 	before_action :set_article
 	def index
-		@comments= @article.comments
-		@comment=Comment.new
-		
+		@comments = @article.comments
+		@comment  = Comment.new
+
 
 	end
-
 
 	def create
 		@comment = @article.comments.build(comment_params)
 		@comment.user=current_user
-		@comment.save
+    @comment.save
+#	if @comment.save
+#			@essay.comments
+#    @comment_=@last_comment_cratedat
 
 		redirect_to article_path(@article)
 	end
-	
+
 	def destroy
 		@comment =@article.comments.find(params[:id])
 		@comment.destroy
 		redirect_to article_path(@article)
-		
+
 	end
 
 
@@ -29,7 +31,5 @@ class ArticleCommentsController < ApplicationController
 		params.require(:comment).permit(:content)
 	end
 
-	def set_article
-		@article= Article.find(params[:article_id])
-	end
+
 end

@@ -1,18 +1,50 @@
 
-<h2><%= @article.topic %></h2>
+
+<h1><%= @article.topic %></h1>
+
+
+<% if @article.find_my_subscription(current_user) %>
+  <%= link_to "UnSubscribe", unsubscribe_article_path(@article), :method => :post, :class => "btn btn-danger" %>
+<% else %>
+  <%= link_to "Subscribe", subscribe_article_path(@article), :method => :post, :class => "btn btn-default" %>
+<% end %>
+
+<% like = @article.find_my_like(current_user) %>
+ <% if like %>
+   <%= link_to "Unlike", article_like_path(@article, like), :method => :delete, :class => "btn btn-danger" %>
+ <% else %>
+   <%= link_to "Like", article_likes_path(@article), :method => :post, :class => "btn btn-default" %>
+ <% end %>
+
+<p>
+ Liked by
+ <% @article.liked_users.each do |u| %>
+   <%= link_to u.display_name, user_path(u) %>,
+ <% end %>
+</p>
+
 <hr>
 	<p>Published by <%= @article.user.email %></p><hr>
 	<p>Published at <%= @article.updated_at %></p><hr>
-	<p><% @article.categories.each do |c|%>	
+	<p><% @article.categories.each do |c|%>
 	<%= c.title %>
 	<% end %></p><hr>
 	<p><%= simple_format(@article.content) %></p>
-	
+
 <hr>
+
+<% if @article.logo.exists? %>
+   <%= image_tag(@article.logo.url(:medium))%>
+<% else %>
+  None
+<% end %><hr>
+
 <%= form_for @comment, :url => article_comments_path(@article), :class => "form" do |f|%>
+
 	<%= f.label :comment, "Comment: " %>
 	<%= f.text_field :content  %>
 	<%= f.submit "add comment"%>
+
 <% end %>
 <hr>
 	<ul>
@@ -23,6 +55,6 @@
 				<li> <%= link_to "Delete Comment", article_comment_path(@article,c), :method => :delete %></li>
 			</ul>
 			</li>
-		<% end %>	
+		<% end %>
 	</ul>
 <p><%= link_to 'Back to index', articles_path, :class=> "btn btn-default"%></p>

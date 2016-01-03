@@ -1,21 +1,49 @@
 class ArticlesController < ApplicationController
-	before_action :set_article, :only=> [:show, :edit, :update, :destroy]
-	before_action :authenticate_user!
+
+	before_action :set_article, :only => [:show]
+  before_action :set_my_article, :only => [:edit, :update, :destroy]
+
+	before_action :authenticate_user!, :except => [:index, :show]
+
+  def about
+  end
+
 	def index
-		@articles = Article.page(params[:page]).per(5)
+    if params[:keyword]
+      @articles = Article.where( [ "topic like ?", "%#{params[:keyword]}%" ] )
+    elsif params[:list]
+      @category = Category.find(params[:list])
+      @articles = @category.articles
+    else
+      @articles = Article.all
+    end
+
+
+    if params[:order] == 'comments_cont'
+      sort_by = 'comments_cont DESC'
+    elsif params[:order] == 'comments_cont'
+      sory_by = 'lastcomment_crated_at'
+    elsif params[:order] == "id"
+      sort_by = "id ASC"
+    else
+      sort_by = "id DESC"
+    end
+
+    @articles = @articles.order(sort_by).page(params[:page]).per(5)
 	end
 
 	def new
 		@article = Article.new
 	end
-	
-	def create 
+
+	def create
 		@article = Article.new(article_params)
-		@article.user_id = current_user.id
+		@article.user = current_user
 		@article.save
+
 		redirect_to articles_url
 	end
-	
+
 	def show
 		@page_title= @article.topic
 		@comment= Comment.new
@@ -27,22 +55,52 @@ class ArticlesController < ApplicationController
 	end
 
 	def update
-		@article.update(article_params)
-		redirect_to articles_path
+    if params[:_remove_logo] == "1"
+    	@article.logo = nil
+    end
+
+		if @article.update(article_params)
+			flash[:notice] ="編輯成功"
+		  redirect_to articles_path( :page => params[:page] )
+    else
+    	render :action => :index
+    end
 	end
 
 	def destroy
-		@article.destroy
-		redirect_to articles_url
+		if @article.destroy
+			flash[:notice] ="刪除成功"
+		  redirect_to articles_url( :page => params[:page] )
+		end
 	end
 
+  # POST /topics/:id/subscribe
+  def subscribe
+    @article = Article.find( params[:id] )
+    @article.subscriptions.create!( :user => current_user )
+
+    redirect_to :back
+  end
+
+  def unsubscribe
+    @article = Article.find( params[:id] )
+    current_user.subscriptions.where( :article_id => @article.id ).destroy_all
+
+    redirect_to :back
+  end
+
 	private
+
 	def article_params
-		params.require(:article).permit(:topic, :content, :category_ids => [])
+		params.require(:article).permit(:topic, :content, :logo,:category_ids => [])
 	end
 
 	def set_article
-		@article=Article.find(params[:id])
+		@article = Article.find(params[:id])
 	end
+
+  def set_my_article
+    @article = current_user.articles.find(params[:id])
+  end
 
 end

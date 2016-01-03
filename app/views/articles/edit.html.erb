@@ -1,10 +1,27 @@
 
+<%= form_for @article, :url => article_path(@article, :page => params[:page] ),:class => "form" do |f|%>
 
-<%= form_for @article, :url => article_path, :class => "form" do |f|%>
-	<%= f.collection_check_boxes(:category_ids, Category.all, :id, :title) %>
-	<%= f.label :topic, "Topic: " %>
-	<%= f.text_field :topic  %>
-	<%= f.label :content, "Content: " %>
-	<%= f.text_area :content %>
-	<%= f.submit "Update"%>
+<%= hidden_field_tag :page, params[:page] %>
+
+<div class="form-group">
+  <%= f.label :topic, "Topic: " %>
+  <%= f.text_field :topic  %>
+</div>
+<div class="form-group">
+  <%= f.file_field :logo %>
+  <% if @article.logo.exists? %>
+    <%= check_box_tag "_remove_logo","1"%> Remove Logo
+  <% end %>
+</div>
+<div class="form-group">
+  <%= f.collection_check_boxes(:category_ids, Category.all, :id, :title) %>
+</div>
+<div class="form-group">
+  <%= f.label :content, "Content: " %>
+
+  <%= f.text_area :content %>
+</div>
+
+  <%= f.submit "Update", :class =>"btn btn-primary" %>
 <% end %>
+

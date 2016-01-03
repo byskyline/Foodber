@@ -1,42 +1,73 @@
+<h1>即時新聞網</h1>
+<p><%= image_tag "http://www.coanews.org/liies/2014/11/01.jpg" %></p>
+<p>      </p>
+<p><%= link_to '新增文章', new_article_path, :class=> "btn btn-primary"%></p><hr>
 
-<h1>地震急救網</h1>
+<p>分類：
+
+<% Category.all.each do |c| %>
+	<%=link_to c.title, articles_path(:list=>c), :class=> "btn btn-primary"%>
+<% end %>
+
+<%=link_to "ALL", articles_path, :class=> "btn btn-primary"%>
+
+<p>
+<%= link_to "ID ASC", articles_path( :order => "id") %>
+<%= link_to "ID DESC", articles_path( :order => "id desc") %>
+</p>
+
+</p><hr>
+<%= form_tag articles_path, :method => :get do %>
+  <%= text_field_tag "keyword" %>
+  <%= submit_tag "Search" %>
+<% end %>
+<hr>
 
 <table class="table">
 	<tr>
-		<td>Topic</td>
-		<td>Comments</td>
-		<td>created at</td>
-		<td>updated at</td>
-		<td></td>
+		<td>Topic標題</td>
+		<td>Name作者</td>
+		<td>Comments回應數</td>
+		<td>Created at回應時間</td>
+		<td>Updated at更新時間</td>
+		<td>其他功能</td>
 	</tr>
 
-	<tr><% @articles.each do |article|%>
+	<tr>
+	<% @articles.each do |article|%>
 		<td>
-			<%= "#{article.topic}"%>
+			<%= article.topic%>
 		</td>
 		<td>
-			<%= "#{article.comments.count}"%>
+			<%= link_to article.user.short_name, user_profile_path(article.user) %>
 		</td>
 		<td>
-			<%= "#{article.created_at}"%>
+			<%= article.comments.count %>
 		</td>
 		<td>
-			<%= "#{article.updated_at}"%>
+			<%= article.comments.last.try(:created_at) %>
+		</td>
+		<td>
+			<%= article.updated_at %>
 		</td>
 
 		<td>
-			<%= link_to "show", article_path(article), :class=> "btn btn-default"%>
+			<%= link_to "show", article_path(article), :class=> "btn btn-primary" %>
+		</td>
+
+		<% if current_user && article.user == current_user %>
+		<td>
+			<%= link_to "edit", edit_article_path(article, :page => params[:page]), :class=> "btn btn-default" %>
 		</td>
 		<td>
-			<%= link_to "edit", edit_article_path(article), :class=> "btn btn-default"%>
+			<%= link_to "delete", article_path(article, :page => params[:page] ), :method =>:delete, :class=> "btn btn-danger" %>
 		</td>
-		<td>
-			<%= link_to "delete", article_path(article), :method =>:delete, :class=> "btn btn-danger" %>
-		</td>
-	
+		<% end %>
+
 	</tr>
 
 	<%end%>
 </table>
+
 <%= paginate @articles %>
-<p><%= link_to 'Add new article', new_article_path, :class=> "btn btn-default"%></p>
+
