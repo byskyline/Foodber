@@ -30,11 +30,93 @@
 
   <h1>後台管理系統</h1>
 
+  <!-- html大搬家 -->
+<h1>即時新聞網</h1>
+<p><%= image_tag "http://www.coanews.org/liies/2014/11/01.jpg" %></p>
+<p>      </p>
+<p>
+<%= link_to '新增文章', new_article_path, :class=> "btn btn-primary"%>
+<%= link_to "刪除全部",bulk_delete_articles_path,:method => :post, :class=> "btn btn-danger" %>
+<% if current_user && current_user.admin? %>
+  <%= link_to "後台管理", admin_articles_path, :class=> "btn btn-success" %>
+<% end %>
+</p><hr>
+<p>分類：
+
+<% Category.all.each do |c| %>
+  <%=link_to c.title, articles_path(:list=>c), :class=> "btn btn-primary"%>
+<% end %>
+
+<%=link_to "全部", articles_path, :class=> "btn btn-primary"%>
+
+<%= link_to "ID ASC", articles_path( :order => "id"), :class=> "btn btn-primary" %>
+<%= link_to "ID DESC", articles_path( :order => "id desc"), :class=> "btn btn-primary" %>
+
+</p><hr>
+<%= form_tag articles_path, :method => :get do %>
+  <%= text_field_tag "keyword" %>
+  <%= submit_tag "Search" %>
+<% end %>
+<hr>
+
+<table class="table">
+  <tr>
+    <td>Topic標題</td>
+    <td>Name作者</td>
+    <td>Comments回應數</td>
+    <td>Created at回應時間</td>
+    <td>Updated at更新時間</td>
+    <td>其他功能</td>
+  </tr>
+
+  <tr>
+  <% @articles.each do |article|%>
+    <td>
+      <%= check_box_tag "ids[]",article.id,false %>
+      <%= article.topic%>
+    </td>
+    <td>
+      <%= link_to article.user.short_name, user_profile_path(article.user) %>
+    </td>
+    <td>
+      <%= article.comments.count %>
+    </td>
+    <td>
+      <%= article.comments.last.try(:created_at) %>
+    </td>
+    <td>
+      <%= article.updated_at %>
+    </td>
+
+    <td>
+      <%= link_to "show", article_path(article), :class=> "btn btn-primary" %>
+    </td>
+
+    <% if current_user && article.user == current_user %>
+    <td>
+      <%= link_to "edit", edit_article_path(article, :page => params[:page]), :class=> "btn btn-default" %>
+    </td>
+    <td>
+      <%= link_to "delete", article_path(article, :page => params[:page] ), :method =>:delete, :class=> "btn btn-danger" %>
+    </td>
+    <% end %>
+
+  </tr>
+
+  <%end%>
+</table>
+
+
+
+  <!-- html大搬家 -->
+
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
 <%= yield %>
-
+  <% if current_user && current_user.admin? %>
   <%= link_to "admin", admin_articles_path %>
+  <% end %>
+
 
 </div>
 

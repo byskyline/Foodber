@@ -89,6 +89,7 @@ class ArticlesController < ApplicationController
     redirect_to :back
   end
 
+
 	private
 
 	def article_params

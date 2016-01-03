@@ -1,20 +1,21 @@
 <h1>即時新聞網</h1>
 <p><%= image_tag "http://www.coanews.org/liies/2014/11/01.jpg" %></p>
 <p>      </p>
-<p><%= link_to '新增文章', new_article_path, :class=> "btn btn-primary"%></p><hr>
-
+<p><%= link_to '新增文章', new_article_path, :class=> "btn btn-primary"%>
+<% if current_user && current_user.admin? %>
+  <%= link_to "後台管理", admin_articles_path, :class=> "btn btn-success" %>
+<% end %>
+</p><hr>
 <p>分類：
 
 <% Category.all.each do |c| %>
 	<%=link_to c.title, articles_path(:list=>c), :class=> "btn btn-primary"%>
 <% end %>
 
-<%=link_to "ALL", articles_path, :class=> "btn btn-primary"%>
+<%=link_to "全部", articles_path, :class=> "btn btn-primary"%>
 
-<p>
-<%= link_to "ID ASC", articles_path( :order => "id") %>
-<%= link_to "ID DESC", articles_path( :order => "id desc") %>
-</p>
+<%= link_to "ID ASC", articles_path( :order => "id"), :class=> "btn btn-primary" %>
+<%= link_to "ID DESC", articles_path( :order => "id desc"), :class=> "btn btn-primary" %>
 
 </p><hr>
 <%= form_tag articles_path, :method => :get do %>
@@ -68,6 +69,8 @@
 
 	<%end%>
 </table>
-
+  <% if current_user && current_user.admin? %>
+  <%= link_to "admin", admin_articles_path %>
+  <% end %>
 <%= paginate @articles %>
 
