@@ -12,6 +12,7 @@ class Admin::ArticlesController < ApplicationController
 
   def bulk_delete
     Article.destroy_all
+    Comment.destroy_all
     redirect_to articles_path
   end
 

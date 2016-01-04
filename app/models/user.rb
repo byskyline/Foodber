@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_one :profile
 
 	has_many :articles, :dependent => :destroy
-	has_many :comments
+	has_many :comments, :dependent => :destroy
 
   has_many :likes, :dependent => :destroy
   has_many :liked_articles, :through => :likes, :source => :article
