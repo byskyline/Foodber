@@ -18,19 +18,15 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :articles
+    resources :articles do
+      collection do
+        post :bulk_delete
+        post :bulk_update
+      end
+    end
   end
 
-  resources :articles do
-    collection do
-      post :bulk_delete
-    end
-  end
-  resources :articles do
-    collection do
-      post :bulk_update
-    end
-  end
+  resources :articles
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -36,7 +36,7 @@
 <p>      </p>
 <p>
 <%= link_to '新增文章', new_article_path, :class=> "btn btn-primary"%>
-<%= link_to "刪除全部",bulk_delete_articles_path,:method => :post, :class=> "btn btn-danger" %>
+<%= link_to "刪除全部",bulk_delete_admin_articles_path,:method => :post, :class=> "btn btn-danger" %>
 <% if current_user && current_user.admin? %>
   <%= link_to "後台管理", admin_articles_path, :class=> "btn btn-success" %>
 <% end %>
@@ -69,8 +69,9 @@
     <td>其他功能</td>
   </tr>
 
+  <%= form_tag bulk_update_admin_articles_path do %>
   <tr>
-  <% @articles.each do |article|%>
+    <% @articles.each do |article|%>
     <td>
       <%= check_box_tag "ids[]",article.id,false %>
       <%= article.topic%>
@@ -100,10 +101,13 @@
       <%= link_to "delete", article_path(article, :page => params[:page] ), :method =>:delete, :class=> "btn btn-danger" %>
     </td>
     <% end %>
-
   </tr>
 
   <%end%>
+  <p><%= submit_tag "Delete" ,:class=> "btn btn-primary" %>
+  <%= submit_tag "Publish" ,:class=> "btn btn-primary" %> </p><hr>
+<%end%>
+
 </table>
 
 
