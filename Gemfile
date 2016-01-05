@@ -17,6 +17,7 @@ gem 'kaminari'
 gem 'devise'
 gem "rest-client"
 gem 'bootstrap-sass', '~> 3.3.6'
+gem "rspec-rails"
 gem "paperclip", "~> 4.3"
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

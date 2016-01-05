@@ -16,6 +16,11 @@ class User < ActiveRecord::Base
   has_many :subscriptions
   has_many :subscribed_articles, :through => :subscriptions, :source => :article
 
+  def get_fb_data
+    j = RestClient.get "https://graph.facebook.com/v2.5/me", :params => { :access_token => self.fb_token, :fields => "id,name,email,picture" }
+    JSON.parse(j)
+  end
+
   def get_profile
     if self.profile
       return self.profile
