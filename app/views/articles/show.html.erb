@@ -29,6 +29,9 @@
 	<p><% @article.categories.each do |c|%>
 	<%= c.title %>
 	<% end %></p><hr>
+    <p><% @article.tags.each do |i|%>
+  <%= i.name %>
+  <% end %></p><hr>
 	<p><%= simple_format(@article.content) %></p>
 
 <hr>

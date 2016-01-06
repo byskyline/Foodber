@@ -28,6 +28,8 @@
 	<tr>
 		<td>Topic標題</td>
 		<td>Name作者</td>
+		<td>圖片</td>
+		<td>Tags標籤</td>
 		<td>Views瀏覽數</td>
 		<td>Comments回應數</td>
 		<td>Created at回應時間</td>
@@ -43,6 +45,22 @@
 		<td>
 			<%= link_to article.user.short_name, user_profile_path(article.user) %>
 		</td>
+<td>
+<% if article.logo.exists? %>
+   <%= image_tag(article.logo.url(:medium))%>
+<% else %>
+  None
+<% end %><hr>
+
+</td>
+
+
+    <td>
+
+     <% article.tags.each do |i| %>
+       <%= link_to i.name, articles_path( :tag => i.name ) %>
+     <% end %>
+    </td>
 		<td>
 		  <%= article.views_count %>
 		</td>

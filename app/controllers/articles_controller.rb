@@ -14,6 +14,9 @@ class ArticlesController < ApplicationController
     elsif params[:list]
       @category = Category.find(params[:list])
       @articles = @category.articles
+    elsif params[:tag]
+      tag = Tag.find_by_name( params[:tag] )
+      @articles = tag.articles
     else
       @articles = Article.all
     end
@@ -58,10 +61,11 @@ class ArticlesController < ApplicationController
 	end
 
 	def edit
-
+    @article = current_user.articles.find( params[:id] )
 	end
 
 	def update
+    @article = current_user.articles.find( params[:id] )
     if params[:_remove_logo] == "1"
     	@article.logo = nil
     end
@@ -100,7 +104,7 @@ class ArticlesController < ApplicationController
 	private
 
 	def article_params
-		params.require(:article).permit(:topic, :content, :logo,:category_ids => [])
+		params.require(:article).permit(:topic, :content, :logo,:category_ids,:tag_list)
 	end
 
 	def set_article

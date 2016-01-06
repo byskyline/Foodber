@@ -13,6 +13,10 @@
 	<%= f.collection_check_boxes(:category_ids, Category.all, :id, :title) %>
 </div>
 <div class="form-group">
+   <%= f.label :tag_list %>
+   <%= f.text_field :tag_list, :class => "form-control" %>
+</div>
+<div class="form-group">
 	<%= f.label :content, "Content: " %>
 
 	<%= f.text_area :content %>
