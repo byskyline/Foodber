@@ -28,6 +28,7 @@
 	<tr>
 		<td>Topic標題</td>
 		<td>Name作者</td>
+		<td>Views瀏覽數</td>
 		<td>Comments回應數</td>
 		<td>Created at回應時間</td>
 		<td>Updated at更新時間</td>
@@ -41,6 +42,9 @@
 		</td>
 		<td>
 			<%= link_to article.user.short_name, user_profile_path(article.user) %>
+		</td>
+		<td>
+		  <%= article.views_count %>
 		</td>
 		<td>
 			<%= article.comments.count %>

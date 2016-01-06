@@ -48,6 +48,13 @@ class ArticlesController < ApplicationController
 		@page_title= @article.topic
 		@comment= Comment.new
 		@comments =@article.comments
+
+    unless cookies["view-article-#{@article.id}"]
+    cookies["view-article-#{@article.id}"] = "viewed"
+     @article.views_count += 1
+     @article.save!
+    end
+
 	end
 
 	def edit
