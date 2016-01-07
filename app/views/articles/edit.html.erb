@@ -1,5 +1,5 @@
 
-<%= form_for @article, :url => article_path(@article, :page => params[:page] ),:class => "form" do |f|%>
+<%= form_for @article, :url => article_path( :page => params[:page] ),:class => "form" do |f|%>
 
 <%= hidden_field_tag :page, params[:page] %>
 
