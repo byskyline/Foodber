@@ -14,8 +14,8 @@
 
 <%=link_to "全部", articles_path, :class=> "btn btn-primary"%>
 
-<%= link_to "ID ASC", articles_path( :order => "id"), :class=> "btn btn-primary" %>
-<%= link_to "ID DESC", articles_path( :order => "id desc"), :class=> "btn btn-primary" %>
+<%= link_to "從舊到新", articles_path( :order => "id"), :class=> "btn btn-primary" %>
+<%= link_to "從新到舊", articles_path( :order => "id desc"), :class=> "btn btn-primary" %>
 
 </p><hr>
 <%= form_tag articles_path, :method => :get do %>
