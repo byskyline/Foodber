@@ -2,7 +2,11 @@
 
 <h1><%= @article.topic %></h1>
 
-
+<% if @article.logo.exists? %>
+   <%= image_tag(@article.logo.url(:medium))%>
+<% else %>
+  None
+<% end %><hr>
 <!--<% if @article.find_my_subscription(current_user) %>
   <%= link_to "UnSubscribe", unsubscribe_article_path(@article), :method => :post, :class => "btn btn-danger" %>
 <% else %>
@@ -36,11 +40,7 @@
   <p><%= @article.price %></p>
 <hr>
 
-<% if @article.logo.exists? %>
-   <%= image_tag(@article.logo.url(:medium))%>
-<% else %>
-  None
-<% end %><hr>
+
 
 <%= form_for @comment, :url => article_comments_path(@article), :class => "form" do |f|%>
 
