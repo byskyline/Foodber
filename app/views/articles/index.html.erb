@@ -1,5 +1,5 @@
-<h1>即時新聞網</h1>
-<p><%= image_tag "http://www.coanews.org/liies/2014/11/01.jpg" %></p>
+<h1>Foodber</h1>
+<p><%= image_tag "http://a.dilcdn.com/bl/wp-content/uploads/sites/8/2011/06/pepperjack-daiya36-480.jpg" %></p>
 <p>      </p>
 <p><%= link_to '新增文章', new_article_path, :class=> "btn btn-primary"%>
 <% if current_user && current_user.admin? %>
@@ -50,7 +50,7 @@
    <%= image_tag(article.logo.url(:medium))%>
 <% else %>
   None
-<% end %><hr>
+<% end %>
 
 </td>
 
