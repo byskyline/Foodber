@@ -3,7 +3,7 @@
 <h1><%= @article.topic %></h1>
 
 
-<% if @article.find_my_subscription(current_user) %>
+<!--<% if @article.find_my_subscription(current_user) %>
   <%= link_to "UnSubscribe", unsubscribe_article_path(@article), :method => :post, :class => "btn btn-danger" %>
 <% else %>
   <%= link_to "Subscribe", subscribe_article_path(@article), :method => :post, :class => "btn btn-default" %>
@@ -25,7 +25,7 @@
 
 <hr>
 	<p>Published by <%= @article.user.email %></p><hr>
-	<p>Published at <%= @article.updated_at %></p><hr>
+	<p>Published at <%= @article.updated_at %></p><hr> -->
 	<p><% @article.categories.each do |c|%>
 	<%= c.title %>
 	<% end %></p><hr>
@@ -33,7 +33,7 @@
   <%= i.name %>
   <% end %></p><hr>
 	<p><%= simple_format(@article.content) %></p>
-
+  <p><%= @article.price %></p>
 <hr>
 
 <% if @article.logo.exists? %>
@@ -50,6 +50,7 @@
 
 <% end %>
 <hr>
+
 	<ul>
 		<% @comments.each do |c|%>
 			<li><%= c.content %>

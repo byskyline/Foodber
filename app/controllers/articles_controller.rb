@@ -14,14 +14,13 @@ class ArticlesController < ApplicationController
     elsif params[:list]
       @category = Category.find(params[:list])
       @articles = @category.articles
+    elsif params[:tag]
+      tag = Tag.find_by_name( params[:tag] )
+      @articles = tag.articles
     else
       @articles = Article.all
     end
 
-    if params[:tag]
-      tag = Tag.find_by_name( params[:tag] )
-      @articles = tag.articles
-    end
 
     if params[:order] == 'comments_cont'
       sort_by = 'comments_cont DESC'
@@ -106,7 +105,7 @@ class ArticlesController < ApplicationController
 	private
 
 	def article_params
-		params.require(:article).permit(:topic, :content, :logo, :category_ids => [],:tag_list => [] )
+		params.require(:article).permit(:topic, :content, :logo,:price,:tag_list, :category_ids => [] )
 	end
 
 	def set_article

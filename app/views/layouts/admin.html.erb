@@ -31,8 +31,7 @@
   <h1>後台管理系統</h1>
 
   <!-- html大搬家 -->
-<h1>Foodber</h1>
-<p><%= image_tag "http://a.dilcdn.com/bl/wp-content/uploads/sites/8/2011/06/pepperjack-daiya36-480.jpg" %></p>
+<p><%= image_tag "logo.png", size: "1100x400" %></p>
 <p>      </p>
 <p>
 <%= link_to '新增文章', new_article_path, :class=> "btn btn-primary"%>
@@ -49,8 +48,8 @@
 
 <%=link_to "全部", articles_path, :class=> "btn btn-primary"%>
 
-<%= link_to "ID ASC", articles_path( :order => "id"), :class=> "btn btn-primary" %>
-<%= link_to "ID DESC", articles_path( :order => "id desc"), :class=> "btn btn-primary" %>
+<%= link_to "從舊到新", articles_path( :order => "id"), :class=> "btn btn-primary" %>
+<%= link_to "從新到舊", articles_path( :order => "id desc"), :class=> "btn btn-primary" %>
 
 </p><hr>
 <%= form_tag articles_path, :method => :get do %>
@@ -63,6 +62,10 @@
   <tr>
     <td>Topic標題</td>
     <td>Name作者</td>
+    <td>圖片</td>
+    <td>敘述</td>
+    <td>價格</td>
+    <td>Tags標籤</td>
     <td>Views瀏覽數</td>
     <td>Comments回應數</td>
     <td>Created at回應時間</td>
@@ -79,6 +82,24 @@
     </td>
     <td>
       <%= link_to article.user.short_name, user_profile_path(article.user) %>
+    </td>
+    <td>
+      <% if article.logo.exists? %>
+      <%= image_tag(article.logo.url(:medium))%>
+      <% else %>
+        None
+      <% end %>
+    </td>
+    <td>
+      <%= article.content%>
+    </td>
+    <td>
+      <%= article.price%>
+    </td>
+    <td>
+     <% article.tags.each do |i| %>
+       <%= link_to i.name, articles_path( :tag => i.name ) %>
+     <% end %>
     </td>
     <td>
       <%= article.views_count %>
@@ -130,3 +151,4 @@
 
 </body>
 </html>
+

@@ -1,7 +1,8 @@
-<h1>Foodber</h1>
-<p><%= image_tag "http://a.dilcdn.com/bl/wp-content/uploads/sites/8/2011/06/pepperjack-daiya36-480.jpg" %></p>
+<p><%= image_tag "logo.png", size: "1100x400" %></p>
 <p>      </p>
+<% if current_user && current_user.admin? %>
 <p><%= link_to '新增文章', new_article_path, :class=> "btn btn-primary"%>
+<% end %>
 <% if current_user && current_user.admin? %>
   <%= link_to "後台管理", admin_articles_path, :class=> "btn btn-success" %>
 <% end %>
@@ -25,71 +26,80 @@
 <hr>
 
 <table class="table">
-	<tr>
-		<td>Topic標題</td>
-		<td>Name作者</td>
-		<td>圖片</td>
-		<td>Tags標籤</td>
-		<td>Views瀏覽數</td>
-		<td>Comments回應數</td>
-		<td>Created at回應時間</td>
-		<td>Updated at更新時間</td>
-		<td>其他功能</td>
-	</tr>
+  <tr>
+    <td>餐點名稱</td>
+<!--    <td>Name作者</td>  -->
+    <td>圖片</td>
+    <td>敘述</td>
+    <td>價格</td>
+    <td>標籤</td>
+<!--    <td>Views瀏覽數</td>
+    <td>Comments回應數</td>
+    <td>Created at回應時間</td>
+    <td>Updated at更新時間</td>  -->
+    <td>顯示全部</td>
+  </tr>
 
-	<tr>
-	<% @articles.each do |article|%>
-		<td>
-			<%= article.topic%>
-		</td>
-		<td>
-			<%= link_to article.user.short_name, user_profile_path(article.user) %>
-		</td>
-<td>
-<% if article.logo.exists? %>
-   <%= image_tag(article.logo.url(:medium))%>
-<% else %>
-  None
-<% end %>
-
-</td>
-
-
+  <%= form_tag bulk_update_admin_articles_path do %>
+  <tr>
+    <% @articles.each do |article|%>
     <td>
-
+<!--      <%= check_box_tag "ids[]",article.id,false %>  -->
+      <%= article.topic%>
+    </td>
+ <!--   <td>
+      <%= link_to article.user.short_name, user_profile_path(article.user) %>
+    </td>  -->
+    <td>
+      <% if article.logo.exists? %>
+      <%= image_tag(article.logo.url(:medium))%>
+      <% else %>
+        None
+      <% end %>
+    </td>
+    <td>
+      <%= article.content%>
+    </td>
+    <td>
+      <%= article.price%>
+    </td>
+    <td>
      <% article.tags.each do |i| %>
        <%= link_to i.name, articles_path( :tag => i.name ) %>
      <% end %>
     </td>
-		<td>
-		  <%= article.views_count %>
-		</td>
-		<td>
-			<%= article.comments.count %>
-		</td>
-		<td>
-			<%= article.comments.last.try(:created_at) %>
-		</td>
-		<td>
-			<%= article.updated_at %>
-		</td>
+ <!--   <td>
+      <%= article.views_count %>
+    </td>
+    <td>
+      <%= article.comments.count %>
+    </td>
+    <td>
+      <%= article.comments.last.try(:created_at) %>
+    </td>
+    <td>
+      <%= article.updated_at %>
+    </td>  -->
 
-		<td>
-			<%= link_to "show", article_path(article), :class=> "btn btn-primary" %>
-		</td>
+    <td>
+      <%= link_to "show", article_path(article), :class=> "btn btn-primary" %>
+    </td>
 
-		<% if current_user && article.user == current_user %>
-		<td>
-			<%= link_to "edit", edit_article_path(article, :page => params[:page]), :class=> "btn btn-default" %>
-		</td>
-		<td>
-			<%= link_to "delete", article_path(article, :page => params[:page] ), :method =>:delete, :class=> "btn btn-danger" %>
-		</td>
-		<% end %>
+ <!--   <% if current_user && article.user == current_user %>
+    <td>
+      <%= link_to "edit", edit_article_path(article, :page => params[:page]), :class=> "btn btn-default" %>
+    </td>
+    <td>
+      <%= link_to "delete", article_path(article, :page => params[:page] ), :method =>:delete, :class=> "btn btn-danger" %>
+    </td>
+    <% end %>  -->
+  </tr>
 
-	</tr>
+  <%end%>
+ <!-- <p><%= submit_tag "Delete" ,:class=> "btn btn-primary" %>
+  <%= submit_tag "Publish" ,:class=> "btn btn-primary" %> </p><hr>  -->
+<%end%>
 
-	<%end%>
 </table>
   <% if current_user && current_user.admin? %>
   <%= link_to "admin", admin_articles_path %>
