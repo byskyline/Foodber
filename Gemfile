@@ -17,7 +17,6 @@ gem 'kaminari'
 gem 'devise'
 gem "rest-client"
 gem 'bootstrap-sass', '~> 3.3.6'
-gem "rspec-rails"
 gem "paperclip", "~> 4.3"
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -40,12 +39,16 @@ gem 'omniauth-facebook'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'faker'
+
+  #  rails g rspec:install
+  gem 'rspec-rails'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
-  gem 'faker'
+
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
