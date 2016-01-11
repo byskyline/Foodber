@@ -14,9 +14,9 @@
 
 <p><%= image_tag "logo.png", size: "1100x450" %></p>
 <p>      </p>
-<% if current_user && current_user.admin? %>
+
 <p><%= link_to '新增餐點', new_article_path, :class=> "btn btn-primary"%>
-<% end %>
+
 <% if current_user && current_user.admin? %>
   <%= link_to "後台管理", admin_articles_path, :class=> "btn btn-success" %>
 <% end %>
