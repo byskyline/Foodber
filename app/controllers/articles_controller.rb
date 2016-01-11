@@ -33,6 +33,17 @@ class ArticlesController < ApplicationController
     end
 
     @articles = @articles.order(sort_by).page(params[:page]).per(5)
+
+    respond_to do |format|
+      format.html
+      format.json {
+        arr = @articles.map { |t|
+          { :id => t.id, :topic => t.topic }
+        }
+        render :json => { :data => arr }
+      }
+    end
+
 	end
 
 	def new

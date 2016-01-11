@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-
+  scope :path => '/api/v1/', :module => "api_v1", :as => 'v1', :defaults => { :format => :json } do
+    resources :articles # ApiV1::ArticlesController
+  end
 
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
@@ -30,7 +32,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :articles
+resources :articles
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
