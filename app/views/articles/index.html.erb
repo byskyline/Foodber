@@ -122,9 +122,9 @@
 <%end%>
 
 </table>
-  <% if current_user && current_user.admin? %>
+<!--  <% if current_user && current_user.admin? %> -->
   <%= link_to "admin", admin_articles_path %>
-  <% end %>
+<!--  <% end %> -->
 <%= paginate @articles %>
 
 

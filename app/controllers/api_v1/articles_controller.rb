@@ -11,13 +11,14 @@ class ApiV1::ArticlesController < ApiController
     @articles = Article.page( params[:page] ).per(5)
       # index.json.jbuilder
       respond_to do |format|
-      format.html
-      format.json {
-        arr = @articles.map { |t|
-          { :id => t.id, :topic => t.topic ,:tags => t.tags ,:price => t.price ,:logo => t.logo }
-        }
-        render :json => { :data => arr }
-      }
+        format.html
+        # format.json{
+        #   arr = @articles.map{ |t|
+        #     { :id => t.id, :topic => t.topic ,:tags => t.tags ,:price => t.price ,:logo => t.url }
+        #   }
+        #   render :json => { :data => arr }
+        # }
+        format.json
       end
 
   end

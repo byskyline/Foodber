@@ -1,6 +1,6 @@
 development:
-  app_id:
-  secret:
+  app_id: '523595561135324'
+  secret: 'c92da1f4352653d4ab8199fa8ea238af'
 
 production:
   app_id:

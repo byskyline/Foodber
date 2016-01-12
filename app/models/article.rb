@@ -40,6 +40,10 @@ class Article < ActiveRecord::Base
      end
   end
 
+  def url
+    "https://warm-lowlands-8026.herokuapp.com" + self.logo.url
+  end
+
 
   def find_my_like(u)
     if u
