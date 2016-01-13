@@ -27,8 +27,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'omniauth-facebook'
-gem 'pg'
-gem 'rails_12factor', group: :production
+
 gem 'capistrano-rails', :group => :development
 gem 'capistrano-passenger', :group => :development
 gem "mysql2"
