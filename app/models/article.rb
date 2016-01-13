@@ -41,7 +41,7 @@ class Article < ActiveRecord::Base
   end
 
   def url
-    "https://warm-lowlands-8026.herokuapp.com" + self.logo.url
+    "http://139.162.36.19" + self.logo.url
   end
 
 
