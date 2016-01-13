@@ -59,7 +59,8 @@ resources :articles
   #       get 'sold'
   #     end
   #   end
-  root :to =>"articles#index"
+  root "articles#index"
+  #root :to =>"articles#index"
   # Example resource route with sub-resources:
   #   resources :products do
   #     resources :comments, :sales
