@@ -4,10 +4,11 @@
 <%= hidden_field_tag :page, params[:page] %>
 
 <div class="form-group">
-  <%= f.label :topic, "Topic: " %>
+  <%= f.label :topic, "餐點名稱： " %>
   <%= f.text_field :topic , :class => "form-control" %>
 </div>
 <div class="form-group">
+  <%="餐點圖片上傳"%>
   <%= f.file_field :logo %>
   <% if @article.logo.exists? %>
     <%= check_box_tag "_remove_logo","1"%> Remove Logo
@@ -17,19 +18,19 @@
   <%= f.collection_check_boxes(:category_ids, Category.all, :id, :title) %>
 </div>
 <div class="form-group">
-   <%= f.label :tag_list %>
+   <%= f.label :tag_list ,"餐車名稱標籤："%>
    <%= f.text_field :tag_list, :class => "form-control" %>
 </div>
 <div class="form-group">
-  <%= f.label :content, "Content: " %>
+  <%= f.label :content, "敘述：" %>
 
   <%= f.text_area :content, :class => "form-control" %>
 </div>
 <div class="form-group">
-   <%= f.label :price %>
+   <%= f.label :price ,"價格："%>
    <%= f.text_field :price, :class => "form-control" %>
 </div>
 
-  <%= f.submit "Update", :class =>"btn btn-primary" %>
+  <%= f.submit "更新檔案", :class =>"btn btn-primary" %>
 <% end %>
 
